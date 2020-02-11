@@ -20,4 +20,4 @@ window.addEventListener('keyup', function (e) {
   Keyboarder.keyState[e.keyCode] = false
 })
 
-Keyboarder.KEYS = { LEFT: 37, RIGHT: 39, UP: 38, DOWN: 40, S: 83 }
+Keyboarder.KEYS = { LEFT: 37, RIGHT: 39, UP: 38, DOWN: 40, S: 83, SPACE: 32 }
