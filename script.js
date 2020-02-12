@@ -40,10 +40,15 @@ class Player {
     }
 
     update() {
-        if (this.keyboarder.isDown(this.keyboarder.KEYS.LEFT)) {
+        if (this.center.x > 0) {
+            if (this.keyboarder.isDown(this.keyboarder.KEYS.LEFT)) {
             this.center.x -= 2
-        } else if (this.keyboarder.isDown(this.keyboarder.KEYS.RIGHT)) {
+            }
+        } 
+        if (this.center.x < 300) {
+            if (this.keyboarder.isDown(this.keyboarder.KEYS.RIGHT)) {
             this.center.x += 2
+            }
         }
 
         if (this.keyboarder.isDown(this.keyboarder.KEYS.SPACE)) {
@@ -60,12 +65,13 @@ class Player {
 class Bullet {
     constructor (center, velocity) {
         this.center = center
-        this.size = { x: 5, y: 5 }
+        this.size = { x: 5, y: 8 }
         this.velocity = velocity
+
     }
     update() {
         this.center.x += this.velocity.x
-        this.center.y += this.velocity.y
+        this.center.y += this.velocity.y - 15
     }
 }
 
