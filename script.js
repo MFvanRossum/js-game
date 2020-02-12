@@ -4,6 +4,7 @@ class Game {
         let screen = canvas.getContext('2d')
         let gameSize = { x: canvas.width, y: canvas.height }
         this.bodies = []
+        this.bodies = this.bodies.concat(createEnemies(this))
         this.bodies = this.bodies.concat(new Player(this, gameSize))
         let tick = () => {
             this.update()
@@ -28,6 +29,30 @@ class Game {
     addBody (body) {
         this.bodies.push(body)
     }
+}
+
+class Enemy {
+    constructor (game, center) {
+    this.game = game
+    this.center = center
+    this.size = { x: 15, y: 20 }
+    this.moveY = 0
+    this.speedY = 1
+    }
+    update() {
+        this.center.y += this.speedY
+        this.moveY += this.speedY
+    }
+}
+
+function createEnemies(game) {
+    let enemies = []
+    for (let i = 0; i < 5; i++) {
+        let x = Math.random() * 300
+        let y = -30
+        enemies.push(new Enemy(game, { x: x, y: y}))
+    }
+    return enemies
 }
 
 class Player {
@@ -67,11 +92,15 @@ class Bullet {
         this.center = center
         this.size = { x: 5, y: 8 }
         this.velocity = velocity
+        this.ticks = 0
 
     }
     update() {
-        this.center.x += this.velocity.x
-        this.center.y += this.velocity.y - 15
+        this.ticks += 1
+        if (this.ticks % 4 === 0) {
+            this.center.x += this.velocity.x
+            this.center.y += this.velocity.y - 20
+        }
     }
 }
 
