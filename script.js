@@ -47,9 +47,12 @@ class Player {
         }
 
         if (this.keyboarder.isDown(this.keyboarder.KEYS.SPACE)) {
-            let bullet = new bullet({ x: this.center.x, y: this.center.y - this.size.y -10 },
+            let bullet = new Bullet({ x: this.center.x, y: this.center.y - this.size.y - 10 },
                 { x: 0, y: -7 })
             this.game.addBody(bullet)
+        }
+        if (this.center.x < 0 || this.center.x > 300) {
+            
         }
     }
 }
@@ -57,7 +60,7 @@ class Player {
 class Bullet {
     constructor (center, velocity) {
         this.center = center
-        this.size = { X: 5, y: 5 }
+        this.size = { x: 5, y: 5 }
         this.velocity = velocity
     }
     update() {
