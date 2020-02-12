@@ -14,6 +14,10 @@ class Game {
         tick()
     }
     update() {
+        let notColliding = (b1) => {
+            return this.bodies.filter(function (b2) { return colliding(b1, b2) }).length === 0
+        }
+        this.bodies = this.bodies.filter(notColliding)
         for (let i = 0; i < this.bodies.length; i++) {
             this.bodies[i].update()
         }
@@ -80,12 +84,11 @@ class Player {
             let bullet = new Bullet({ x: this.center.x, y: this.center.y - this.size.y - 10 },
                 { x: 0, y: -7 })
             this.game.addBody(bullet)
-        }
-        if (this.center.x < 0 || this.center.x > 300) {
             
+            }           
         }
     }
-}
+
 
 class Bullet {
     constructor (center, velocity) {
@@ -99,7 +102,7 @@ class Bullet {
         this.ticks += 1
         if (this.ticks % 4 === 0) {
             this.center.x += this.velocity.x
-            this.center.y += this.velocity.y - 20
+            this.center.y += this.velocity.y - 15
         }
     }
 }
@@ -107,6 +110,16 @@ class Bullet {
 function drawRect (screen, body) {
     screen.fillRect(body.center.x - body.size.x / 2, body.center.y - body.size.y / 2,
         body.size.x, body.size.y)
+}
+
+function colliding (b1, b2) {
+    return !(
+        b1 === b2 ||
+            b1.center.x + b1.size.x / 2 < b2.center.x - b2.size.x / 2 ||
+            b1.center.y + b1.size.y / 2 < b2.center.y - b2.size.y / 2 ||
+            b1.center.x - b1.size.x / 2 > b2.center.x + b2.size.x / 2 ||
+            b1.center.y - b1.size.y / 2 > b2.center.y + b2.size.y / 2
+    )
 }
 
 window.addEventListener('load', function () {
