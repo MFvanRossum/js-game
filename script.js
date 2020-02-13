@@ -7,6 +7,9 @@ class Game {
         this.bodies = this.bodies.concat(createEnemies(this))
         this.bodies = this.bodies.concat(new Player(this, gameSize))
         let tick = () => {
+            if (this.bodies.length < 20) {
+                this.bodies = this.bodies.concat(createEnemies(this))
+            }
             this.update()
             this.draw(screen, gameSize)
             requestAnimationFrame(tick)
@@ -24,8 +27,6 @@ class Game {
         for (let i = 0; i < this.bodies.length; i++) {
             this.bodies[i].update()
         }
-        // let intervalInMilliseconds = 5000
-        // setInterval(createEnemies, intervalInMilliseconds)
     }
 
     draw(screen, gameSize) {
@@ -49,7 +50,7 @@ class Enemy {
         this.center = center
         this.size = { x: 15, y: 20 }
         this.moveY = 0
-        this.speedY = 1
+        this.speedY = 2
     }
     update() {
         this.center.y += this.speedY
@@ -59,11 +60,10 @@ class Enemy {
 
 function createEnemies(game) {
     let enemies = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 1; i++) {
         let x = Math.random() * 300
         let y = -30
-        let intervalInMilliseconds = 500
-        setInterval(enemies.push(new Enemy(game, { x: x, y: y })), intervalInMilliseconds)
+        enemies.push(new Enemy(game, { x: x, y: y }))
     }
     return enemies
 }
@@ -102,7 +102,7 @@ class Player {
 class Bullet {
     constructor(center, velocity) {
         this.center = center
-        this.size = { x: 5, y: 8 }
+        this.size = { x: 5, y: 10 }
         this.velocity = velocity
         this.ticks = 0
 
@@ -111,7 +111,7 @@ class Bullet {
         this.ticks += 1
         if (this.ticks % 4 === 0) {
             this.center.x += this.velocity.x
-            this.center.y += this.velocity.y - 15
+            this.center.y += this.velocity.y - 50
         }
     }
 }
