@@ -31,7 +31,10 @@ class Game {
     }
 
     addBody (body) {
-        this.bodies.push(body)
+        let isColliding = this.bodies.some(otherBody => colliding(body, otherBody) && body.prototype === otherBody.prototype)
+        if (!isColliding) {
+            this.bodies.push(body)
+        }
     }
 }
 
@@ -51,7 +54,7 @@ class Enemy {
 
 function createEnemies(game) {
     let enemies = []
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
         let x = Math.random() * 300
         let y = -30
         enemies.push(new Enemy(game, { x: x, y: y}))
