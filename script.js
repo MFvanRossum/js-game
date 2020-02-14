@@ -36,18 +36,19 @@ class Game {
         screen.clearRect(0, 0, gameSize.x, gameSize.y)
         for (let i = 0; i < this.bodies.length; i++) {
             if (this.bodies[i] instanceof Bullet) {
-                drawRect(screen, this.bodies[i], 'red')
+                drawRect(screen, this.bodies[i], '#eef20a')
             }
             else {
-            drawRect(screen, this.bodies[i], 'black')
+            drawRect(screen, this.bodies[i], '#49c9c3')
             }
         }
-        this.drawScore(screen)
+        this.drawScore(screen, 'white')
     }
 
-    drawScore(screen) {
+    drawScore(screen, color) {
+        screen.fillStyle = color
         screen.font = '1rem sans-serif'
-        screen.fillText(`Score: ${this.score}`, 10, 10)
+        screen.fillText(`Score: ${this.score}`, 10, 15)
     }
 
     addBody(body) {
