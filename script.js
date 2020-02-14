@@ -32,7 +32,12 @@ class Game {
     draw(screen, gameSize) {
         screen.clearRect(0, 0, gameSize.x, gameSize.y)
         for (let i = 0; i < this.bodies.length; i++) {
-            drawRect(screen, this.bodies[i])
+            if (this.bodies[i] instanceof Bullet) {
+                drawRect(screen, this.bodies[i], 'red')
+            }
+            else {
+            drawRect(screen, this.bodies[i], 'black')
+            }
         }
     }
 
@@ -116,9 +121,12 @@ class Bullet {
     }
 }
 
-function drawRect(screen, body) {
+function drawRect(screen, body, color) {
+    let oldStyle = screen.fillStyle
+    screen.fillStyle = color
     screen.fillRect(body.center.x - body.size.x / 2, body.center.y - body.size.y / 2,
         body.size.x, body.size.y)
+    screen.fillStyle = oldStyle
 }
 
 function colliding(b1, b2) {
