@@ -6,6 +6,7 @@ class Game {
         this.bodies = []
         this.bodies = this.bodies.concat(createEnemies(this))
         this.bodies = this.bodies.concat(new Player(this, gameSize))
+        this.score = 0
         let tick = () => {
             if (this.bodies.length < 20) {
                 this.bodies = this.bodies.concat(createEnemies(this))
@@ -17,16 +18,18 @@ class Game {
         tick()
     }
     update() {
-        let notColliding = (b1) => {
-            return this.bodies.filter(function (b2) { return colliding(b1, b2) }).length === 0
-        }
+        this.keepScore()
         let canvas = document.getElementById('pixel-war')
-        this.bodies = this.bodies.filter(notColliding)
+        this.bodies = this.bodies.filter(this.notColliding)
         this.bodies = this.bodies.filter(body => body.center.y >= 0 - 50)
         this.bodies = this.bodies.filter(body => body.center.y <= canvas.height + 50)
         for (let i = 0; i < this.bodies.length; i++) {
             this.bodies[i].update()
         }
+    }
+
+     notColliding = (b1) => {
+        return this.bodies.filter(function (b2) { return colliding(b1, b2) }).length === 0
     }
 
     draw(screen, gameSize) {
@@ -39,12 +42,26 @@ class Game {
             drawRect(screen, this.bodies[i], 'black')
             }
         }
+        this.drawScore(screen)
+    }
+
+    drawScore(screen) {
+        screen.font = '1rem sans-serif'
+        screen.fillText(`Score: ${this.score}`, 10, 10)
     }
 
     addBody(body) {
         let isColliding = this.bodies.some(otherBody => colliding(body, otherBody) && body.prototype === otherBody.prototype)
         if (!isColliding) {
             this.bodies.push(body)
+        }
+    }
+
+    keepScore() {
+        for (let body of this.bodies) {
+            if (body instanceof Bullet && !this.notColliding(body)) {
+                this.score += 10
+            }
         }
     }
 }
