@@ -73,7 +73,7 @@ class Enemy {
         this.center = center
         this.size = { x: 15, y: 20 }
         this.moveY = 0
-        this.speedY = 2
+        this.speedY = 3
     }
     update() {
         this.center.y += this.speedY

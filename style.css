@@ -8,6 +8,7 @@ body {
     font-family: 'VT323', monospace;
     background-color: #8cdbb6;
     color: #652273;
+    text-shadow: 1px 1px 3px rgb(29, 29, 29);
 }
 
 .header {
