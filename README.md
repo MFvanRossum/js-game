@@ -1,4 +1,14 @@
-# Building A Game in JavaScript
+# The "Pew-Pew" Square
+
+The "Pew-Pew" Square is a retro Space Invaders style game built in JavaScript, using Object-Oriented Programming. The game was created as an assignment for Momentum Learning's Immersive Full Stack Development Course. 
+
+The game works by generating instances of Player, Enemy, and Bullet classes on a pre-drawn canvas that updates, or 'ticks' many times per second.
+
+To launch the game, run 'open index.html' in your terminal.
+
+Assignment details are listed below:
+
+## Building A Game in JavaScript
 
 ## Directions
 
